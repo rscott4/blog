@@ -5,7 +5,11 @@
 json=
 json+="["
 for typ in $@; do
-    name="$(basename "${typ}" | sed 's/.typ$//g')"
+    name="$(grep "^= .*$" "${typ}" | head -1)"
+    [ -n "${name}" ] \
+        && name="${name:2}" \
+        || name="$(basename "${typ}" | sed 's/.typ$//g')"
+
     mod_times="$(git log --follow --format=%ad --date=unix "${typ}")"
     created="$(echo "${mod_times}" | tail -1)"
     modified="$(echo "${mod_times}" | head -1)"
