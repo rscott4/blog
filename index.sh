@@ -16,7 +16,9 @@ for typ in $@; do
         && name="${name:2}" \
         || name="$(basename "${typ}" | sed 's/.typ$//g')"
     created="$(echo "${mod_times}" | tail -1)"
+    [ -z "${created}" ] && created=0;
     modified="$(echo "${mod_times}" | head -1)"
+    [ -z "${modified}" ] && modified=0;
     path_typ="./${typ}"
     path_html="$(echo "${path_typ}" | sed 's/.typ$/.html/g')"
     path_pdf="$(echo "${path_typ}" | sed 's/.typ$/.pdf/g')"
@@ -24,8 +26,8 @@ for typ in $@; do
     printf -v json \
         '"%s": {
             "name": "%s",
-            "created": "%s",
-            "modified": "%s",
+            "created": %s,
+            "modified": %s,
             "path": {
                 "typ": "%s",
                 "html": "%s",
