@@ -42,4 +42,6 @@ done
 json_arr="${json_arr::-1}"
 json_arr+="}"
 
-echo "${json_arr}" | jq > "${INDEX_JSON_FILE_PATH}"
+echo "${json_arr}" | jq \
+    "to_entries | sort_by(.value.created) | from_entries" \
+    > "${INDEX_JSON_FILE_PATH}"
