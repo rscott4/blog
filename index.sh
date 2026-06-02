@@ -5,10 +5,12 @@
 [ "$#" = "0" ] && echo "{}" > "${INDEX_JSON_FILE_PATH}" && exit 0
 
 json_arr=
-json_arr+="["
+json_arr+="{"
 for typ in $@; do
     mod_times="$(git log --follow --format=%ad --date=unix "${typ}")"
 
+    git_hash_object="$(git ls-files -s "${typ}" | awk '{ printf $2 }')"
+    [ -z "${git_hash_object}" ] && git_hash_object="UNTRACKED_${typ}";
     name="$(grep "^= .*$" "${typ}" | head -1)"
     [ -n "${name}" ] \
         && name="${name:2}" \
@@ -20,7 +22,7 @@ for typ in $@; do
     path_pdf="$(echo "${path_typ}" | sed 's/.typ$/.pdf/g')"
 
     printf -v json \
-        '{
+        '"%s": {
             "name": "%s",
             "created": "%s",
             "modified": "%s",
@@ -30,12 +32,12 @@ for typ in $@; do
                 "pdf": "%s"
             }
         }' \
-        "${name}" "${created}" "${modified}" \
+        "${git_hash_object}" "${name}" "${created}" "${modified}" \
         "${path_typ}" "${path_html}" "${path_pdf}"
 
     json_arr+="${json},"
 done
 json_arr="${json_arr::-1}"
-json_arr+="]"
+json_arr+="}"
 
 echo "${json_arr}" | jq > "${INDEX_JSON_FILE_PATH}"
