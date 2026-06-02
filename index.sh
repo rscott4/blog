@@ -2,6 +2,8 @@
 
 : ${INDEX_JSON_FILE_PATH:="./index.json"}
 
+[ "$#" = "0" ] && echo "{}" > "${INDEX_JSON_FILE_PATH}" && exit 0
+
 json_arr=
 json_arr+="["
 for typ in $@; do
@@ -33,7 +35,7 @@ for typ in $@; do
 
     json_arr+="${json},"
 done
-[ "$#" != "0" ] && json_arr="${json_arr::-1}"
+json_arr="${json_arr::-1}"
 json_arr+="]"
 
 echo "${json_arr}" | jq > "${INDEX_JSON_FILE_PATH}"
