@@ -1,4 +1,4 @@
-= I hate my server, I love my server
+= I hate my server, I love my server.
 
 The web and mail servers are working and functioning but not to my
 standards.
