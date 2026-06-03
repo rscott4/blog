@@ -43,5 +43,5 @@ json_arr="${json_arr::-1}"
 json_arr+="}"
 
 echo "${json_arr}" | jq \
-    "to_entries | sort_by(.value.created) | from_entries" \
+    "to_entries | sort_by(.value.created) | reverse | from_entries" \
     > "${INDEX_JSON_FILE_PATH}"
