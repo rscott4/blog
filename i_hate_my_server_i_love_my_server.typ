@@ -60,12 +60,13 @@ Raspberry PI I have got lying around would make more sense.
 
 == What I like at the moment
 - The server's external IP is routed through a wireguard server that
-is hosted via TOR.
+  is hosted via TOR.
 
 - My data is point-to-point encrypted with my own generated SSL/TLS
-certificate. Meaning the data is safe from any MITM attacks. Notably
-email meaning all ingoing email is encrypted before reaching my server,
-for outgoing, GPG signatures and encryption fits my needs well.
+  certificate. Meaning the data is safe from any MITM attacks. Notably
+  email meaning all ingoing email is encrypted before reaching my
+  server, for outgoing, GPG signatures and encryption fits my needs
+  well.
 
 - The domain nameservers are hosted on the server itself.
 
