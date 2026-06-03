@@ -6,7 +6,7 @@ INDEX_JSON_FILE_PATH=index.json
 all: index pdf html
 
 index: $(TFILES)
-	./index.sh $<
+	./index.sh $^
 
 pdf: $(PFILES)
 
